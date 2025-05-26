@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import Navigation from "../../components/Navigation/Navigation";
 import { BackLink } from "../../components/BackLink/BackLink";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMovieDetails } from "../../api/movieApi";
 import css from "./MovieDetailsPage.module.css";
 
@@ -11,7 +11,9 @@ const MovieDetailPage = () => {
   const [movie, setMovie] = useState(null);
 
   const location = useLocation();
-  const backLinkHref = location.state ?? "/";
+
+  const backLinkLocationRef = useRef(location.state);
+  const backLinkHref = backLinkLocationRef.current ?? "/movies";
 
   useEffect(() => {
     if (!movieId) return;
@@ -31,7 +33,6 @@ const MovieDetailPage = () => {
   return (
     movie && (
       <div>
-        <Navigation />
         <BackLink to={backLinkHref}>Go back</BackLink>
         <main className={css.movieDetails}>
           <section className={css.movieInfo}>

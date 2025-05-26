@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../../api/movieApi";
 import MovieList from "../../components/MovieList/MovieList";
-import Navigation from "../../components/Navigation/Navigation";
 import toast from "react-hot-toast";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { PacmanLoader } from "react-spinners";
@@ -32,7 +31,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Navigation />
       <PacmanLoader size={50} loading={loading} />
       {!error && !loading && <MovieList movies={movies} />}
       {error && <ErrorMessage />}
